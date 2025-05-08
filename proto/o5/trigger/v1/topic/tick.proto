@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package o5.trigger.v1.topic;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "j5/ext/v1/annotations.proto";
+import "j5/messaging/v1/annotations.proto";
+import "j5/messaging/v1/reqres.proto";
+import "j5/messaging/v1/upsert.proto";
+
+option go_package = "github.com/pentops/trigger/gen/o5/trigger/v1/trigger_tpb";
+
+service SelfTickTopic {
+  option (j5.messaging.v1.config).unicast.name = "selftick";
+
+  rpc SelfTick(SelfTickMessage) returns (google.protobuf.Empty) {}
+}
+
+message SelfTickMessage {
+  google.protobuf.Timestamp last_tick = 1 [
+    (buf.validate.field).required = true,
+    (j5.ext.v1.field).timestamp = {}
+  ];
+}
