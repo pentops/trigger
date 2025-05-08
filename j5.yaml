@@ -1,0 +1,56 @@
+---
+bundles:
+  - name: trigger
+    dir: proto
+
+generate:
+  - name: go
+    inputs:
+      - local: trigger
+    output: ./gen
+    mods:
+      - goPackageNames:
+          prefix: github.com/pentops/trigger/gen
+    opts:
+      paths: import
+      module: github.com/pentops/trigger/gen
+    plugins:
+      - base: go
+      - base: go-sugar
+      - base: go-grpc
+      - base: go-psm
+      - base: go-o5-messaging
+
+managedPaths:
+  - gen
+
+plugins:
+  - name: go
+    type: PLUGIN_PROTO
+    docker:
+      image: ghcr.io/pentops/protoc-gen-go:v1.32.0
+
+  - name: go-grpc
+    base: go
+    docker:
+      image: ghcr.io/pentops/protoc-gen-go-grpc:v1.3.0
+
+  - name: go-sugar
+    base: go
+    docker:
+      image: ghcr.io/pentops/protoc-gen-go-sugar:b1e769eeea97192209ab5a4e8fc560bf72ce5ba7
+
+  - name: go-psm
+    base: go
+    docker:
+      image: ghcr.io/pentops/protoc-gen-go-protostate:0e53bf187205575499cec3d4d8e42b319108deb3
+
+  - name: go-o5-messaging
+    base: go
+    docker:
+      image: ghcr.io/pentops/protoc-gen-go-o5-messaging:cf9d6419c7cd3df56f0ca849ac19b8e2a0f794cc
+
+  - name: go-client
+    type: PLUGIN_J5_CLIENT
+    docker:
+      image: ghcr.io/pentops/j5-gen-go-client:be48807efde22a2744260bfd5632a59db63955dd

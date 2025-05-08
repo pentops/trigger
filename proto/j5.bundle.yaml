@@ -1,0 +1,18 @@
+---
+packages:
+  - label: Trigger
+    name: o5.trigger.v1
+
+options:
+  subPackages:
+    - name: service
+    - name: topic
+
+dependencies:
+  - registry:
+      owner: pentops
+      name: j5
+
+  - registry:
+      owner: pentops
+      name: messaging

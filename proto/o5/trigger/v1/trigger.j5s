@@ -1,0 +1,180 @@
+package o5.trigger.v1
+
+import j5.messaging.v1:messaging
+
+entity Trigger {
+
+  key triggerId key:id62 {
+    primary = true
+  }
+
+  data triggerName ! string
+
+  data appName ! string
+
+  data cron string
+    | Standard cron expression for the trigger.
+    | The default timezone is America/New_York.
+    | A different timezone can be specified by prefixing the cron expression with
+    | CRON_TZ=<timezone>
+    |   For example: CRON_TZ=America/Los_Angeles 0 0 * * *
+
+  data requestMetadata object:messaging.RequestMetadata
+
+  status ACTIVE
+  status PAUSED
+  status ARCHIVED
+
+  event Created {
+    | Trigger has been requested
+
+    field triggerName ! string
+
+    field appName ! string
+
+    field cron ! string
+
+    field requestMetadata ! object:messaging.RequestMetadata
+  }
+
+  event Updated {
+  | Trigger has been modified
+
+    field triggerName ! string
+
+    field appName ! string
+
+    field cron ! string
+
+    field requestMetadata ! object:messaging.RequestMetadata
+  }
+
+  event Paused {
+    | Pause the trigger
+  }
+
+  event Activated {
+    | Resume the paused trigger
+  }
+
+  event ManuallyTriggered {
+    | Manually run the trigger for a specific time
+
+    field triggerTime timestamp {
+      | The time the trigger is for
+      required = true
+    }
+  }
+
+  event Triggered {
+    | The trigger has been executed for this time.
+
+    field triggerTime timestamp {
+      | The time the trigger is for
+      required = true
+    }
+  }
+
+  event Archived {
+    | Archive the trigger
+  }
+
+  command {
+    method PauseTrigger {
+      | Pause a trigger
+      httpMethod = "POST"
+      httpPath = ""
+
+      request {
+        field triggerID key:id62 {
+          required = true
+        }
+      }
+
+      response {
+        field trigger object:TriggerState {
+          required = true
+        }
+      }
+    }
+
+    method ResumeTrigger {
+		| Resume a paused trigger
+      httpMethod = "POST"
+      httpPath = ""
+
+      request {
+        field triggerID key:id62 {
+          required = true
+        }
+      }
+
+      response {
+        field trigger object:TriggerState {
+          required = true
+        }
+      }
+    }
+
+    method ManuallyTrigger {
+      | Manually trigger for a time
+
+      httpMethod = "POST"
+      httpPath = ""
+
+      request {
+        field triggerID key:id62 {
+          required = true
+        }
+
+        field triggerTime timestamp {
+          | The time the trigger is for
+          required = true
+        }
+      }
+
+      response {
+        field trigger object:TriggerState {
+          required = true
+        }
+      }
+    }
+
+  }
+}
+
+topic Tick reqres {
+	request {
+    field action ! oneof:ActionType
+	}
+
+	reply {
+    field tickTime ! timestamp | The time the trigger is for
+	}
+}
+
+oneof ActionType {
+  option create object {
+    field triggerID ? key:id62
+
+    field triggerName ! string
+
+    field appName ! string
+
+    field cron string
+  }
+
+  option update object {
+    field triggerID ! key:id62
+
+    field triggerName ! string
+
+    field appName ! string
+
+    field cron string
+  }
+
+  option archive object {
+    field triggerID ! string
+  }
+}
