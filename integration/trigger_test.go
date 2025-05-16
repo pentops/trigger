@@ -13,7 +13,6 @@ import (
 	"github.com/pentops/trigger/gen/o5/trigger/v1/trigger_pb"
 	"github.com/pentops/trigger/gen/o5/trigger/v1/trigger_spb"
 	"github.com/pentops/trigger/gen/o5/trigger/v1/trigger_tpb"
-	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -35,7 +34,7 @@ func TestTickRequest(tt *testing.T) {
 			Action: &trigger_pb.ActionType{
 				Type: &trigger_pb.ActionType_Create_{
 					Create: &trigger_pb.ActionType_Create{
-						TriggerId:   proto.String(triggerID),
+						TriggerId:   triggerID,
 						AppName:     "test",
 						TriggerName: "TestCron",
 						Cron:        "CRON_TZ=America/New_York 0 7 * * *",

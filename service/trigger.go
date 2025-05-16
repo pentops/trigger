@@ -78,7 +78,7 @@ func (w *TriggerWorker) TickRequest(ctx context.Context, req *trigger_tpb.TickRe
 		}
 
 		triggerid := id62.NewString()
-		if req.GetAction().GetCreate().TriggerId != nil {
+		if req.GetAction().GetCreate().TriggerId != "" {
 			triggerid = req.GetAction().GetCreate().GetTriggerId()
 		}
 

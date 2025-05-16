@@ -18,7 +18,6 @@ import (
 	"github.com/pentops/trigger/gen/o5/trigger/v1/trigger_tpb"
 	"github.com/pentops/trigger/service"
 	"github.com/pentops/trigger/utils"
-	"google.golang.org/protobuf/proto"
 )
 
 type Universe struct {
@@ -141,7 +140,7 @@ func (uu *Universe) CreateTrigger(ctx context.Context, config triggerConfig) err
 		Action: &trigger_pb.ActionType{
 			Type: &trigger_pb.ActionType_Create_{
 				Create: &trigger_pb.ActionType_Create{
-					TriggerId:   proto.String(triggerID),
+					TriggerId:   triggerID,
 					TriggerName: triggerName,
 					AppName:     appName,
 					Cron:        cron,
