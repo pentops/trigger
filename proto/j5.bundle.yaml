@@ -1,12 +1,16 @@
 ---
-packages:
-  - label: Trigger
-    name: o5.trigger.v1
+registry:
+  owner: pentops
+  name: trigger
 
 options:
   subPackages:
     - name: service
     - name: topic
+
+packages:
+  - label: Trigger
+    name: o5.trigger.v1
 
 dependencies:
   - registry:
