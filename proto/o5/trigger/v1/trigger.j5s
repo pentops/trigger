@@ -3,6 +3,7 @@ package o5.trigger.v1
 import j5.messaging.v1:messaging
 
 entity Trigger {
+  baseUrlPath = "/trigger/v1/trigger"
 
   key triggerId key:id62 {
     primary = true

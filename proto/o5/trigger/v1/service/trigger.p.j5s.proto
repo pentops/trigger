@@ -16,17 +16,17 @@ service TriggerQueryService {
   option (j5.ext.v1.service).state_query.entity = "trigger";
 
   rpc TriggerGet(TriggerGetRequest) returns (TriggerGetResponse) {
-    option (google.api.http) = {get: "/o5/trigger/v1/trigger/q/{trigger_id}"};
+    option (google.api.http) = {get: "/trigger/v1/trigger/q/{trigger_id}"};
     option (j5.ext.v1.method).state_query.get = true;
   }
 
   rpc TriggerList(TriggerListRequest) returns (TriggerListResponse) {
-    option (google.api.http) = {get: "/o5/trigger/v1/trigger/q"};
+    option (google.api.http) = {get: "/trigger/v1/trigger/q"};
     option (j5.ext.v1.method).state_query.list = true;
   }
 
   rpc TriggerEvents(TriggerEventsRequest) returns (TriggerEventsResponse) {
-    option (google.api.http) = {get: "/o5/trigger/v1/trigger/q/{trigger_id}/events"};
+    option (google.api.http) = {get: "/trigger/v1/trigger/q/{trigger_id}/events"};
     option (j5.ext.v1.method).state_query.list_events = true;
   }
 }
@@ -36,21 +36,21 @@ service TriggerCommandService {
 
   rpc PauseTrigger(PauseTriggerRequest) returns (PauseTriggerResponse) {
     option (google.api.http) = {
-      post: "/o5/trigger/v1/trigger/c"
+      post: "/trigger/v1/trigger/c"
       body: "*"
     };
   }
 
   rpc ResumeTrigger(ResumeTriggerRequest) returns (ResumeTriggerResponse) {
     option (google.api.http) = {
-      post: "/o5/trigger/v1/trigger/c"
+      post: "/trigger/v1/trigger/c"
       body: "*"
     };
   }
 
   rpc ManuallyTrigger(ManuallyTriggerRequest) returns (ManuallyTriggerResponse) {
     option (google.api.http) = {
-      post: "/o5/trigger/v1/trigger/c"
+      post: "/trigger/v1/trigger/c"
       body: "*"
     };
   }
