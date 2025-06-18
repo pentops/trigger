@@ -130,9 +130,11 @@ func (uu *Universe) CreateTrigger(ctx context.Context, config triggerConfig) err
 		cron = config.Cron
 	}
 
-	triggerID := id62.New().String()
+	var generatedTriggerID = id62.New().String()
+	var triggerID = &generatedTriggerID
+
 	if config.TriggerID != "" {
-		triggerID = config.TriggerID
+		triggerID = &config.TriggerID
 	}
 
 	req := &trigger_tpb.TickRequestMessage{
@@ -234,7 +236,7 @@ func (uu *Universe) ArchiveTrigger(ctx context.Context, triggerID string) error 
 
 func (uu *Universe) mustTruncateSelfTable(ctx context.Context, t flowtest.Asserter) {
 	err := uu.db.Transact(ctx, utils.MutableTxOptions, func(ctx context.Context, tx sqrlx.Transaction) error {
-		_, err := tx.ExecRaw(ctx, "TRUNCATE TABLE selftick")
+		_, err := tx.ExecRaw(ctx, "truncate table selftick")
 		if err != nil {
 			t.Fatalf("failed to truncate self tick table: %v", err)
 		}

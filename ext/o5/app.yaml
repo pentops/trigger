@@ -30,7 +30,7 @@ runtimes:
     subscriptions:
       - name: "/o5.trigger.v1.topic.TriggerTopic"
     routes:
-      - prefix: "/trigger/v1/"
+      - prefix: "/trigger/v1/*"
         protocol: ROUTE_PROTOCOL_HTTP
 
     containers:
