@@ -77,14 +77,15 @@ func (w *TriggerWorker) TickRequest(ctx context.Context, req *trigger_tpb.TickRe
 			return nil, fmt.Errorf("invalid cron string: %v", validateCron(req.Action.GetCreate().Cron).Error())
 		}
 
-		triggerid := id62.NewString()
-		if req.GetAction().GetCreate().TriggerId != "" {
-			triggerid = req.GetAction().GetCreate().GetTriggerId()
+		newTriggerID := id62.NewString()
+		triggerIDFromAction := req.GetAction().GetCreate().TriggerId
+		if triggerIDFromAction != nil && *triggerIDFromAction != "" {
+			newTriggerID = *triggerIDFromAction
 		}
 
 		evt = &trigger_pb.TriggerPSMEventSpec{
 			Keys: &trigger_pb.TriggerKeys{
-				TriggerId: triggerid,
+				TriggerId: newTriggerID,
 			},
 			Cause: &psm_j5pb.Cause{
 				Type: &psm_j5pb.Cause_ExternalEvent{
