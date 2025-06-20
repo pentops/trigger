@@ -36,21 +36,21 @@ service TriggerCommandService {
 
   rpc PauseTrigger(PauseTriggerRequest) returns (PauseTriggerResponse) {
     option (google.api.http) = {
-      post: "/trigger/v1/trigger/c"
+      post: "/trigger/v1/trigger/c/{trigger_id}/pause"
       body: "*"
     };
   }
 
   rpc ResumeTrigger(ResumeTriggerRequest) returns (ResumeTriggerResponse) {
     option (google.api.http) = {
-      post: "/trigger/v1/trigger/c"
+      post: "/trigger/v1/trigger/c/{trigger_id}/resume"
       body: "*"
     };
   }
 
   rpc ManuallyTrigger(ManuallyTriggerRequest) returns (ManuallyTriggerResponse) {
     option (google.api.http) = {
-      post: "/trigger/v1/trigger/c"
+      post: "/trigger/v1/trigger/c/{trigger_id}/manual"
       body: "*"
     };
   }

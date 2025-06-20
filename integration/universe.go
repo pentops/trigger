@@ -142,7 +142,7 @@ func (uu *Universe) CreateTrigger(ctx context.Context, config triggerConfig) err
 		Action: &trigger_pb.ActionType{
 			Type: &trigger_pb.ActionType_Create_{
 				Create: &trigger_pb.ActionType_Create{
-					TriggerId:   triggerID,
+					TriggerId:   *triggerID,
 					TriggerName: triggerName,
 					AppName:     appName,
 					Cron:        cron,

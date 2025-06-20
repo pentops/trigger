@@ -79,8 +79,8 @@ func (w *TriggerWorker) TickRequest(ctx context.Context, req *trigger_tpb.TickRe
 
 		newTriggerID := id62.NewString()
 		triggerIDFromAction := req.GetAction().GetCreate().TriggerId
-		if triggerIDFromAction != nil && *triggerIDFromAction != "" {
-			newTriggerID = *triggerIDFromAction
+		if triggerIDFromAction != "" {
+			newTriggerID = triggerIDFromAction
 		}
 
 		evt = &trigger_pb.TriggerPSMEventSpec{

@@ -84,7 +84,7 @@ entity Trigger {
     method PauseTrigger {
       | Pause a trigger
       httpMethod = "POST"
-      httpPath = ""
+      httpPath = "/:triggerID/pause"
 
       request {
         field triggerID key:id62 {
@@ -102,7 +102,7 @@ entity Trigger {
     method ResumeTrigger {
 		| Resume a paused trigger
       httpMethod = "POST"
-      httpPath = ""
+      httpPath = "/:triggerID/resume"
 
       request {
         field triggerID key:id62 {
@@ -121,7 +121,7 @@ entity Trigger {
       | Manually trigger for a time
 
       httpMethod = "POST"
-      httpPath = ""
+      httpPath = "/:triggerID/manual"
 
       request {
         field triggerID key:id62 {
