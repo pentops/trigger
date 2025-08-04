@@ -16,9 +16,8 @@ generate:
       module: github.com/pentops/trigger/gen
     plugins:
       - base: go
-      - base: go-sugar
       - base: go-grpc
-      - base: go-psm
+      - base: go-j5
       - base: go-o5-messaging
 
 managedPaths:
@@ -34,23 +33,19 @@ plugins:
     base: go
     docker:
       image: ghcr.io/pentops/protoc-gen-go-grpc:v1.3.0
-
-  - name: go-sugar
-    base: go
-    docker:
-      image: ghcr.io/pentops/protoc-gen-go-sugar:b1e769eeea97192209ab5a4e8fc560bf72ce5ba7
-
-  - name: go-psm
-    base: go
-    docker:
-      image: ghcr.io/pentops/protoc-gen-go-protostate:0e53bf187205575499cec3d4d8e42b319108deb3
+  - base: go
+    name: go-j5
+    runType:
+      builtin: "go-j5"
 
   - name: go-o5-messaging
     base: go
-    docker:
-      image: ghcr.io/pentops/protoc-gen-go-o5-messaging:cf9d6419c7cd3df56f0ca849ac19b8e2a0f794cc
+    runType:
+      docker:
+        image: ghcr.io/pentops/protoc-gen-go-o5-messaging:7e07c29129f03edc9ef01ba4739328625ef24746
 
   - name: go-client
     type: PLUGIN_J5_CLIENT
-    docker:
-      image: ghcr.io/pentops/j5-gen-go-client:be48807efde22a2744260bfd5632a59db63955dd
+    runType:
+      docker:
+        image: ghcr.io/pentops/j5-gen-go-client:666b517dec2c2c3481599690df0fe1ea6916976b

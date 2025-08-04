@@ -4,67 +4,55 @@ package trigger_spb
 
 import (
 	context "context"
-	psm "github.com/pentops/protostate/psm"
+	fmt "fmt"
+	j5reflect "github.com/pentops/j5/lib/j5reflect"
+	j5schema "github.com/pentops/j5/lib/j5schema"
+	psm "github.com/pentops/j5/lib/psm"
 	sqrlx "github.com/pentops/sqrlx.go/sqrlx"
 )
 
 // State Query Service for %sTrigger
 // QuerySet is the query set for the Trigger service.
 
-type TriggerPSMQuerySet = psm.StateQuerySet[
-	*TriggerGetRequest,
-	*TriggerGetResponse,
-	*TriggerListRequest,
-	*TriggerListResponse,
-	*TriggerEventsRequest,
-	*TriggerEventsResponse,
-]
+type TriggerPSMQuerySet = psm.StateQuerySet
 
 func NewTriggerPSMQuerySet(
-	smSpec psm.QuerySpec[
-		*TriggerGetRequest,
-		*TriggerGetResponse,
-		*TriggerListRequest,
-		*TriggerListResponse,
-		*TriggerEventsRequest,
-		*TriggerEventsResponse,
-	],
+	smSpec psm.QuerySpec,
 	options psm.StateQueryOptions,
 ) (*TriggerPSMQuerySet, error) {
-	return psm.BuildStateQuerySet[
-		*TriggerGetRequest,
-		*TriggerGetResponse,
-		*TriggerListRequest,
-		*TriggerListResponse,
-		*TriggerEventsRequest,
-		*TriggerEventsResponse,
-	](smSpec, options)
+	return psm.BuildStateQuerySet(smSpec, options)
 }
 
-type TriggerPSMQuerySpec = psm.QuerySpec[
-	*TriggerGetRequest,
-	*TriggerGetResponse,
-	*TriggerListRequest,
-	*TriggerListResponse,
-	*TriggerEventsRequest,
-	*TriggerEventsResponse,
-]
+type TriggerPSMQuerySpec = psm.QuerySpec
 
 func DefaultTriggerPSMQuerySpec(tableSpec psm.QueryTableSpec) TriggerPSMQuerySpec {
-	return psm.QuerySpec[
-		*TriggerGetRequest,
-		*TriggerGetResponse,
-		*TriggerListRequest,
-		*TriggerListResponse,
-		*TriggerEventsRequest,
-		*TriggerEventsResponse,
-	]{
+	return psm.QuerySpec{
+		GetMethod: &j5schema.MethodSchema{
+			Request:  j5schema.MustObjectSchema((&TriggerGetRequest{}).ProtoReflect().Descriptor()),
+			Response: j5schema.MustObjectSchema((&TriggerGetResponse{}).ProtoReflect().Descriptor()),
+		},
+		ListMethod: &j5schema.MethodSchema{
+			Request:  j5schema.MustObjectSchema((&TriggerListRequest{}).ProtoReflect().Descriptor()),
+			Response: j5schema.MustObjectSchema((&TriggerListResponse{}).ProtoReflect().Descriptor()),
+		},
+		ListEventsMethod: &j5schema.MethodSchema{
+			Request:  j5schema.MustObjectSchema((&TriggerEventsRequest{}).ProtoReflect().Descriptor()),
+			Response: j5schema.MustObjectSchema((&TriggerEventsResponse{}).ProtoReflect().Descriptor()),
+		},
 		QueryTableSpec: tableSpec,
-		ListRequestFilter: func(req *TriggerListRequest) (map[string]interface{}, error) {
+		ListRequestFilter: func(reqReflect j5reflect.Object) (map[string]interface{}, error) {
+			req, ok := reqReflect.Interface().(*TriggerListRequest)
+			if !ok {
+				return nil, fmt.Errorf("expected *TriggerListRequest but got %T", req)
+			}
 			filter := map[string]interface{}{}
 			return filter, nil
 		},
-		ListEventsRequestFilter: func(req *TriggerEventsRequest) (map[string]interface{}, error) {
+		ListEventsRequestFilter: func(reqReflect j5reflect.Object) (map[string]interface{}, error) {
+			req, ok := reqReflect.Interface().(*TriggerEventsRequest)
+			if !ok {
+				return nil, fmt.Errorf("expected *TriggerEventsRequest but got %T", req)
+			}
 			filter := map[string]interface{}{}
 			filter["trigger_id"] = req.TriggerId
 			return filter, nil
@@ -89,7 +77,7 @@ func NewTriggerQueryServiceImpl(db sqrlx.Transactor, querySet *TriggerPSMQuerySe
 
 func (s *TriggerQueryServiceImpl) TriggerGet(ctx context.Context, req *TriggerGetRequest) (*TriggerGetResponse, error) {
 	resObject := &TriggerGetResponse{}
-	err := s.querySet.Get(ctx, s.db, req, resObject)
+	err := s.querySet.Get(ctx, s.db, req.J5Object(), resObject.J5Object())
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +86,7 @@ func (s *TriggerQueryServiceImpl) TriggerGet(ctx context.Context, req *TriggerGe
 
 func (s *TriggerQueryServiceImpl) TriggerList(ctx context.Context, req *TriggerListRequest) (*TriggerListResponse, error) {
 	resObject := &TriggerListResponse{}
-	err := s.querySet.List(ctx, s.db, req, resObject)
+	err := s.querySet.List(ctx, s.db, req.J5Object(), resObject.J5Object())
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +95,7 @@ func (s *TriggerQueryServiceImpl) TriggerList(ctx context.Context, req *TriggerL
 
 func (s *TriggerQueryServiceImpl) TriggerEvents(ctx context.Context, req *TriggerEventsRequest) (*TriggerEventsResponse, error) {
 	resObject := &TriggerEventsResponse{}
-	err := s.querySet.ListEvents(ctx, s.db, req, resObject)
+	err := s.querySet.ListEvents(ctx, s.db, req.J5Object(), resObject.J5Object())
 	if err != nil {
 		return nil, err
 	}

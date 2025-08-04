@@ -4,12 +4,12 @@ package trigger_tpb
 
 import (
 	context "context"
-	psm "github.com/pentops/protostate/psm"
+	psm "github.com/pentops/j5/lib/psm"
 	trigger_pb "github.com/pentops/trigger/gen/o5/trigger/v1/trigger_pb"
 )
 
 // Publish Toipc for o5.trigger.v1.Trigger
-func PublishTrigger() psm.EventPublishHook[
+func PublishTrigger() psm.GeneralEventHook[
 	*trigger_pb.TriggerKeys,    // implements psm.IKeyset
 	*trigger_pb.TriggerState,   // implements psm.IState
 	trigger_pb.TriggerStatus,   // implements psm.IStatusEnum

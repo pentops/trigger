@@ -14,9 +14,7 @@ import (
 )
 
 func TestSelfTick(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	TriggerID1 := id62.NewString()
@@ -129,9 +127,7 @@ func TestSelfTick(tt *testing.T) {
 }
 
 func TestInitSelfTick(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	flow.Step("init test", func(ctx context.Context, t flowtest.Asserter) {

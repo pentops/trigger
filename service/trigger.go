@@ -10,6 +10,7 @@ import (
 	sq "github.com/elgris/sqrl"
 	"github.com/pentops/j5/gen/j5/state/v1/psm_j5pb"
 	"github.com/pentops/j5/lib/id62"
+	"github.com/pentops/j5/lib/j5codec"
 	"github.com/pentops/log.go/log"
 	"github.com/pentops/o5-messaging/outbox"
 	"github.com/pentops/sqrlx.go/sqrlx"
@@ -17,7 +18,6 @@ import (
 	"github.com/pentops/trigger/gen/o5/trigger/v1/trigger_tpb"
 	"github.com/pentops/trigger/utils"
 	"github.com/robfig/cron/v3"
-	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -79,8 +79,8 @@ func (w *TriggerWorker) TickRequest(ctx context.Context, req *trigger_tpb.TickRe
 
 		newTriggerID := id62.NewString()
 		triggerIDFromAction := req.GetAction().GetCreate().TriggerId
-		if triggerIDFromAction != "" {
-			newTriggerID = triggerIDFromAction
+		if triggerIDFromAction != nil {
+			newTriggerID = *triggerIDFromAction
 		}
 
 		evt = &trigger_pb.TriggerPSMEventSpec{
@@ -227,7 +227,7 @@ func (w TriggerWorker) SendSelfTick(ctx context.Context, triggeredTime *time.Tim
 		}
 
 		// upsert selftick table
-		asJSON, err := protojson.Marshal(msg)
+		asJSON, err := j5codec.Global.ProtoToJSON(msg.ProtoReflect())
 		if err != nil {
 			return fmt.Errorf("failed to marshal SelfTickMessage: %w", err)
 		}
@@ -260,7 +260,7 @@ func (w TriggerWorker) AllActive(ctx context.Context) ([]*trigger_pb.TriggerStat
 			ctx,
 			sq.Select("state").
 				From("trigger").
-				Where("state->>'status' = 'TRIGGER_STATUS_ACTIVE'"),
+				Where("state->>'status' = 'ACTIVE'"),
 		)
 		if err != nil {
 			if errors.Is(err, sql.ErrNoRows) {
@@ -277,7 +277,7 @@ func (w TriggerWorker) AllActive(ctx context.Context) ([]*trigger_pb.TriggerStat
 				return fmt.Errorf("failed to scan active trigger row %v", err)
 			}
 			tm := &trigger_pb.TriggerState{}
-			if err := protojson.Unmarshal(data, tm); err != nil {
+			if err := j5codec.Global.JSONToProto(data, tm.ProtoReflect()); err != nil {
 				return fmt.Errorf("failed to unmarshal trigger state %v", err)
 			}
 
@@ -309,7 +309,7 @@ func (w TriggerWorker) GetLastTick(ctx context.Context) (*trigger_tpb.SelfTickMe
 	}
 
 	msg := &trigger_tpb.SelfTickMessage{}
-	if err := protojson.Unmarshal(data, msg); err != nil {
+	if err := j5codec.Global.JSONToProto(data, msg.ProtoReflect()); err != nil {
 		return nil, err
 	}
 

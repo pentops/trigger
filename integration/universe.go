@@ -33,7 +33,7 @@ type Universe struct {
 	Outbox *outboxtest.OutboxAsserter
 }
 
-func NewUniverse(ctx context.Context, t *testing.T) (*flowtest.Stepper[*testing.T], *Universe) {
+func NewUniverse(t *testing.T) (*flowtest.Stepper[*testing.T], *Universe) {
 	name := t.Name()
 	stepper := flowtest.NewStepper[*testing.T](name)
 	uu := &Universe{}
@@ -142,7 +142,7 @@ func (uu *Universe) CreateTrigger(ctx context.Context, config triggerConfig) err
 		Action: &trigger_pb.ActionType{
 			Type: &trigger_pb.ActionType_Create_{
 				Create: &trigger_pb.ActionType_Create{
-					TriggerId:   *triggerID,
+					TriggerId:   triggerID,
 					TriggerName: triggerName,
 					AppName:     appName,
 					Cron:        cron,

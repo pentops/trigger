@@ -24,7 +24,7 @@ func BuildService(db sqrlx.Transactor) (*Service, error) {
 		return nil, err
 	}
 
-	query, err := NewQueryService(db, sm)
+	query, err := NewQueryService(db, trigger_spb.DefaultTriggerPSMQuerySpec(sm.StateTableSpec()))
 	if err != nil {
 		return nil, fmt.Errorf("BuildService NewQueryService: %w", err)
 	}

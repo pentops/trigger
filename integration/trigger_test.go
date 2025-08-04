@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/pentops/flowtest"
+	"github.com/pentops/golib/gl"
 	"github.com/pentops/j5/gen/j5/messaging/v1/messaging_j5pb"
 	"github.com/pentops/j5/lib/id62"
 	"github.com/pentops/o5-auth/authtest"
@@ -17,9 +18,7 @@ import (
 )
 
 func TestTickRequest(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	triggerID := id62.NewString()
@@ -34,7 +33,7 @@ func TestTickRequest(tt *testing.T) {
 			Action: &trigger_pb.ActionType{
 				Type: &trigger_pb.ActionType_Create_{
 					Create: &trigger_pb.ActionType_Create{
-						TriggerId:   triggerID,
+						TriggerId:   gl.Ptr(triggerID),
 						AppName:     "test",
 						TriggerName: "TestCron",
 						Cron:        "CRON_TZ=America/New_York 0 7 * * *",
@@ -109,9 +108,7 @@ func TestTickRequest(tt *testing.T) {
 }
 
 func TestActive(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	TriggerID := id62.NewString()
@@ -174,9 +171,7 @@ func TestActive(tt *testing.T) {
 }
 
 func TestPause(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	TriggerID := id62.NewString()
@@ -280,9 +275,7 @@ func TestPause(tt *testing.T) {
 }
 
 func TestManualTrigger(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	TriggerID := id62.NewString()
@@ -326,9 +319,7 @@ func TestManualTrigger(tt *testing.T) {
 }
 
 func TestGrumpyTrigger(tt *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	flow, uu := NewUniverse(ctx, tt)
+	flow, uu := NewUniverse(tt)
 	defer flow.RunSteps(tt)
 
 	TriggerID := id62.NewString()
