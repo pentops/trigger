@@ -31,7 +31,6 @@ func TestSelfTick(tt *testing.T) {
 	}
 
 	flow.Step("create triggers", func(ctx context.Context, t flowtest.Asserter) {
-		t.FailNow()
 		ctx = authtest.JWTContext(ctx)
 
 		err := uu.CreateTrigger(ctx, triggerConfig{
