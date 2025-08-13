@@ -39,3 +39,25 @@ func (msg *TriggerManageReplyMessage) J5Reflect() j5reflect.Root {
 func (msg *TriggerManageReplyMessage) J5Object() j5reflect.Object {
 	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
 }
+
+func (msg *TriggerRequestMessage) Clone() any {
+	return proto.Clone(msg).(*TriggerRequestMessage)
+}
+func (msg *TriggerRequestMessage) J5Reflect() j5reflect.Root {
+	return j5reflect.MustReflect(msg.ProtoReflect())
+}
+
+func (msg *TriggerRequestMessage) J5Object() j5reflect.Object {
+	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
+}
+
+func (msg *TriggerReplyMessage) Clone() any {
+	return proto.Clone(msg).(*TriggerReplyMessage)
+}
+func (msg *TriggerReplyMessage) J5Reflect() j5reflect.Root {
+	return j5reflect.MustReflect(msg.ProtoReflect())
+}
+
+func (msg *TriggerReplyMessage) J5Object() j5reflect.Object {
+	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
+}

@@ -61,10 +61,7 @@ entity Trigger {
   event ManuallyTriggered {
     | Manually run the trigger for a specific time
 
-    field triggerTime timestamp {
-      | The time the trigger is for
-      required = true
-    }
+    field triggerTime ! timestamp | The time the trigger is for
   }
 
   event Triggered {
@@ -178,4 +175,13 @@ oneof ActionType {
   option archive object {
     field triggerID ! string
   }
+}
+
+topic Trigger reqres {
+	request {
+	}
+
+	reply {
+    field tickTime ! timestamp | The time the trigger is for
+	}
 }

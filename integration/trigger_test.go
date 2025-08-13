@@ -51,7 +51,7 @@ func TestManualTrigger(tt *testing.T) {
 		t.NotEmpty(resp.Events[0].Event.GetManuallyTriggered()) // Most recent should be a manually triggered event
 		t.Equal(TriggerTime, resp.Events[0].Event.GetManuallyTriggered().TriggerTime)
 
-		trmsg := &trigger_tpb.TriggerManageReplyMessage{}
+		trmsg := &trigger_tpb.TriggerReplyMessage{}
 		uu.Outbox.PopMessage(t, trmsg)
 		t.Equal(TriggerTime, trmsg.TickTime)
 	})
