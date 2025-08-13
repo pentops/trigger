@@ -95,23 +95,23 @@ func (publish TriggerPublishTopicPublisher) TriggerEvent(ctx context.Context, ms
 	return publish.publisher.Publish(ctx, msg)
 }
 
-// Service: TickRequestTopic
+// Service: TriggerManageRequestTopic
 // Expose Request Metadata
-func (msg *TickRequestMessage) SetJ5RequestMetadata(md *messaging_j5pb.RequestMetadata) {
+func (msg *TriggerManageRequestMessage) SetJ5RequestMetadata(md *messaging_j5pb.RequestMetadata) {
 	msg.Request = md
 }
-func (msg *TickRequestMessage) GetJ5RequestMetadata() *messaging_j5pb.RequestMetadata {
+func (msg *TriggerManageRequestMessage) GetJ5RequestMetadata() *messaging_j5pb.RequestMetadata {
 	return msg.Request
 }
 
-// Method: TickRequest
+// Method: TriggerManageRequest
 
-func (msg *TickRequestMessage) O5MessageHeader() o5msg.Header {
+func (msg *TriggerManageRequestMessage) O5MessageHeader() o5msg.Header {
 	header := o5msg.Header{
-		GrpcService:      "o5.trigger.v1.topic.TickRequestTopic",
-		GrpcMethod:       "TickRequest",
+		GrpcService:      "o5.trigger.v1.topic.TriggerManageRequestTopic",
+		GrpcMethod:       "TriggerManageRequest",
 		Headers:          map[string]string{},
-		DestinationTopic: "tick",
+		DestinationTopic: "trigger_manage",
 	}
 	if msg.Request != nil {
 		header.Extension = &messaging_pb.Message_Request_{
@@ -129,88 +129,88 @@ func (msg *TickRequestMessage) O5MessageHeader() o5msg.Header {
 	return header
 }
 
-type TickRequestTopicTxSender[C any] struct {
+type TriggerManageRequestTopicTxSender[C any] struct {
 	sender o5msg.TxSender[C]
 }
 
-func NewTickRequestTopicTxSender[C any](sender o5msg.TxSender[C]) *TickRequestTopicTxSender[C] {
+func NewTriggerManageRequestTopicTxSender[C any](sender o5msg.TxSender[C]) *TriggerManageRequestTopicTxSender[C] {
 	sender.Register(o5msg.TopicDescriptor{
-		Service: "o5.trigger.v1.topic.TickRequestTopic",
+		Service: "o5.trigger.v1.topic.TriggerManageRequestTopic",
 		Methods: []o5msg.MethodDescriptor{
 			{
-				Name:    "TickRequest",
-				Message: (*TickRequestMessage).ProtoReflect(nil).Descriptor(),
+				Name:    "TriggerManageRequest",
+				Message: (*TriggerManageRequestMessage).ProtoReflect(nil).Descriptor(),
 			},
 		},
 	})
-	return &TickRequestTopicTxSender[C]{sender: sender}
+	return &TriggerManageRequestTopicTxSender[C]{sender: sender}
 }
 
-type TickRequestTopicCollector[C any] struct {
+type TriggerManageRequestTopicCollector[C any] struct {
 	collector o5msg.Collector[C]
 }
 
-func NewTickRequestTopicCollector[C any](collector o5msg.Collector[C]) *TickRequestTopicCollector[C] {
+func NewTriggerManageRequestTopicCollector[C any](collector o5msg.Collector[C]) *TriggerManageRequestTopicCollector[C] {
 	collector.Register(o5msg.TopicDescriptor{
-		Service: "o5.trigger.v1.topic.TickRequestTopic",
+		Service: "o5.trigger.v1.topic.TriggerManageRequestTopic",
 		Methods: []o5msg.MethodDescriptor{
 			{
-				Name:    "TickRequest",
-				Message: (*TickRequestMessage).ProtoReflect(nil).Descriptor(),
+				Name:    "TriggerManageRequest",
+				Message: (*TriggerManageRequestMessage).ProtoReflect(nil).Descriptor(),
 			},
 		},
 	})
-	return &TickRequestTopicCollector[C]{collector: collector}
+	return &TriggerManageRequestTopicCollector[C]{collector: collector}
 }
 
-type TickRequestTopicPublisher struct {
+type TriggerManageRequestTopicPublisher struct {
 	publisher o5msg.Publisher
 }
 
-func NewTickRequestTopicPublisher(publisher o5msg.Publisher) *TickRequestTopicPublisher {
+func NewTriggerManageRequestTopicPublisher(publisher o5msg.Publisher) *TriggerManageRequestTopicPublisher {
 	publisher.Register(o5msg.TopicDescriptor{
-		Service: "o5.trigger.v1.topic.TickRequestTopic",
+		Service: "o5.trigger.v1.topic.TriggerManageRequestTopic",
 		Methods: []o5msg.MethodDescriptor{
 			{
-				Name:    "TickRequest",
-				Message: (*TickRequestMessage).ProtoReflect(nil).Descriptor(),
+				Name:    "TriggerManageRequest",
+				Message: (*TriggerManageRequestMessage).ProtoReflect(nil).Descriptor(),
 			},
 		},
 	})
-	return &TickRequestTopicPublisher{publisher: publisher}
+	return &TriggerManageRequestTopicPublisher{publisher: publisher}
 }
 
-// Method: TickRequest
+// Method: TriggerManageRequest
 
-func (send TickRequestTopicTxSender[C]) TickRequest(ctx context.Context, sendContext C, msg *TickRequestMessage) error {
+func (send TriggerManageRequestTopicTxSender[C]) TriggerManageRequest(ctx context.Context, sendContext C, msg *TriggerManageRequestMessage) error {
 	return send.sender.Send(ctx, sendContext, msg)
 }
 
-func (collect TickRequestTopicCollector[C]) TickRequest(sendContext C, msg *TickRequestMessage) {
+func (collect TriggerManageRequestTopicCollector[C]) TriggerManageRequest(sendContext C, msg *TriggerManageRequestMessage) {
 	collect.collector.Collect(sendContext, msg)
 }
 
-func (publish TickRequestTopicPublisher) TickRequest(ctx context.Context, msg *TickRequestMessage) error {
+func (publish TriggerManageRequestTopicPublisher) TriggerManageRequest(ctx context.Context, msg *TriggerManageRequestMessage) error {
 	return publish.publisher.Publish(ctx, msg)
 }
 
-// Service: TickReplyTopic
+// Service: TriggerManageReplyTopic
 // Expose Request Metadata
-func (msg *TickReplyMessage) SetJ5RequestMetadata(md *messaging_j5pb.RequestMetadata) {
+func (msg *TriggerManageReplyMessage) SetJ5RequestMetadata(md *messaging_j5pb.RequestMetadata) {
 	msg.Request = md
 }
-func (msg *TickReplyMessage) GetJ5RequestMetadata() *messaging_j5pb.RequestMetadata {
+func (msg *TriggerManageReplyMessage) GetJ5RequestMetadata() *messaging_j5pb.RequestMetadata {
 	return msg.Request
 }
 
-// Method: TickReply
+// Method: TriggerManageReply
 
-func (msg *TickReplyMessage) O5MessageHeader() o5msg.Header {
+func (msg *TriggerManageReplyMessage) O5MessageHeader() o5msg.Header {
 	header := o5msg.Header{
-		GrpcService:      "o5.trigger.v1.topic.TickReplyTopic",
-		GrpcMethod:       "TickReply",
+		GrpcService:      "o5.trigger.v1.topic.TriggerManageReplyTopic",
+		GrpcMethod:       "TriggerManageReply",
 		Headers:          map[string]string{},
-		DestinationTopic: "tick",
+		DestinationTopic: "trigger_manage",
 	}
 	if msg.Request != nil {
 		header.Extension = &messaging_pb.Message_Reply_{
@@ -222,67 +222,259 @@ func (msg *TickReplyMessage) O5MessageHeader() o5msg.Header {
 	return header
 }
 
-type TickReplyTopicTxSender[C any] struct {
+type TriggerManageReplyTopicTxSender[C any] struct {
 	sender o5msg.TxSender[C]
 }
 
-func NewTickReplyTopicTxSender[C any](sender o5msg.TxSender[C]) *TickReplyTopicTxSender[C] {
+func NewTriggerManageReplyTopicTxSender[C any](sender o5msg.TxSender[C]) *TriggerManageReplyTopicTxSender[C] {
 	sender.Register(o5msg.TopicDescriptor{
-		Service: "o5.trigger.v1.topic.TickReplyTopic",
+		Service: "o5.trigger.v1.topic.TriggerManageReplyTopic",
 		Methods: []o5msg.MethodDescriptor{
 			{
-				Name:    "TickReply",
-				Message: (*TickReplyMessage).ProtoReflect(nil).Descriptor(),
+				Name:    "TriggerManageReply",
+				Message: (*TriggerManageReplyMessage).ProtoReflect(nil).Descriptor(),
 			},
 		},
 	})
-	return &TickReplyTopicTxSender[C]{sender: sender}
+	return &TriggerManageReplyTopicTxSender[C]{sender: sender}
 }
 
-type TickReplyTopicCollector[C any] struct {
+type TriggerManageReplyTopicCollector[C any] struct {
 	collector o5msg.Collector[C]
 }
 
-func NewTickReplyTopicCollector[C any](collector o5msg.Collector[C]) *TickReplyTopicCollector[C] {
+func NewTriggerManageReplyTopicCollector[C any](collector o5msg.Collector[C]) *TriggerManageReplyTopicCollector[C] {
 	collector.Register(o5msg.TopicDescriptor{
-		Service: "o5.trigger.v1.topic.TickReplyTopic",
+		Service: "o5.trigger.v1.topic.TriggerManageReplyTopic",
 		Methods: []o5msg.MethodDescriptor{
 			{
-				Name:    "TickReply",
-				Message: (*TickReplyMessage).ProtoReflect(nil).Descriptor(),
+				Name:    "TriggerManageReply",
+				Message: (*TriggerManageReplyMessage).ProtoReflect(nil).Descriptor(),
 			},
 		},
 	})
-	return &TickReplyTopicCollector[C]{collector: collector}
+	return &TriggerManageReplyTopicCollector[C]{collector: collector}
 }
 
-type TickReplyTopicPublisher struct {
+type TriggerManageReplyTopicPublisher struct {
 	publisher o5msg.Publisher
 }
 
-func NewTickReplyTopicPublisher(publisher o5msg.Publisher) *TickReplyTopicPublisher {
+func NewTriggerManageReplyTopicPublisher(publisher o5msg.Publisher) *TriggerManageReplyTopicPublisher {
 	publisher.Register(o5msg.TopicDescriptor{
-		Service: "o5.trigger.v1.topic.TickReplyTopic",
+		Service: "o5.trigger.v1.topic.TriggerManageReplyTopic",
 		Methods: []o5msg.MethodDescriptor{
 			{
-				Name:    "TickReply",
-				Message: (*TickReplyMessage).ProtoReflect(nil).Descriptor(),
+				Name:    "TriggerManageReply",
+				Message: (*TriggerManageReplyMessage).ProtoReflect(nil).Descriptor(),
 			},
 		},
 	})
-	return &TickReplyTopicPublisher{publisher: publisher}
+	return &TriggerManageReplyTopicPublisher{publisher: publisher}
 }
 
-// Method: TickReply
+// Method: TriggerManageReply
 
-func (send TickReplyTopicTxSender[C]) TickReply(ctx context.Context, sendContext C, msg *TickReplyMessage) error {
+func (send TriggerManageReplyTopicTxSender[C]) TriggerManageReply(ctx context.Context, sendContext C, msg *TriggerManageReplyMessage) error {
 	return send.sender.Send(ctx, sendContext, msg)
 }
 
-func (collect TickReplyTopicCollector[C]) TickReply(sendContext C, msg *TickReplyMessage) {
+func (collect TriggerManageReplyTopicCollector[C]) TriggerManageReply(sendContext C, msg *TriggerManageReplyMessage) {
 	collect.collector.Collect(sendContext, msg)
 }
 
-func (publish TickReplyTopicPublisher) TickReply(ctx context.Context, msg *TickReplyMessage) error {
+func (publish TriggerManageReplyTopicPublisher) TriggerManageReply(ctx context.Context, msg *TriggerManageReplyMessage) error {
+	return publish.publisher.Publish(ctx, msg)
+}
+
+// Service: TriggerRequestTopic
+// Expose Request Metadata
+func (msg *TriggerRequestMessage) SetJ5RequestMetadata(md *messaging_j5pb.RequestMetadata) {
+	msg.Request = md
+}
+func (msg *TriggerRequestMessage) GetJ5RequestMetadata() *messaging_j5pb.RequestMetadata {
+	return msg.Request
+}
+
+// Method: TriggerRequest
+
+func (msg *TriggerRequestMessage) O5MessageHeader() o5msg.Header {
+	header := o5msg.Header{
+		GrpcService:      "o5.trigger.v1.topic.TriggerRequestTopic",
+		GrpcMethod:       "TriggerRequest",
+		Headers:          map[string]string{},
+		DestinationTopic: "trigger",
+	}
+	if msg.Request != nil {
+		header.Extension = &messaging_pb.Message_Request_{
+			Request: &messaging_pb.Message_Request{
+				ReplyTo: msg.Request.ReplyTo,
+			},
+		}
+	} else {
+		header.Extension = &messaging_pb.Message_Request_{
+			Request: &messaging_pb.Message_Request{
+				ReplyTo: "",
+			},
+		}
+	}
+	return header
+}
+
+type TriggerRequestTopicTxSender[C any] struct {
+	sender o5msg.TxSender[C]
+}
+
+func NewTriggerRequestTopicTxSender[C any](sender o5msg.TxSender[C]) *TriggerRequestTopicTxSender[C] {
+	sender.Register(o5msg.TopicDescriptor{
+		Service: "o5.trigger.v1.topic.TriggerRequestTopic",
+		Methods: []o5msg.MethodDescriptor{
+			{
+				Name:    "TriggerRequest",
+				Message: (*TriggerRequestMessage).ProtoReflect(nil).Descriptor(),
+			},
+		},
+	})
+	return &TriggerRequestTopicTxSender[C]{sender: sender}
+}
+
+type TriggerRequestTopicCollector[C any] struct {
+	collector o5msg.Collector[C]
+}
+
+func NewTriggerRequestTopicCollector[C any](collector o5msg.Collector[C]) *TriggerRequestTopicCollector[C] {
+	collector.Register(o5msg.TopicDescriptor{
+		Service: "o5.trigger.v1.topic.TriggerRequestTopic",
+		Methods: []o5msg.MethodDescriptor{
+			{
+				Name:    "TriggerRequest",
+				Message: (*TriggerRequestMessage).ProtoReflect(nil).Descriptor(),
+			},
+		},
+	})
+	return &TriggerRequestTopicCollector[C]{collector: collector}
+}
+
+type TriggerRequestTopicPublisher struct {
+	publisher o5msg.Publisher
+}
+
+func NewTriggerRequestTopicPublisher(publisher o5msg.Publisher) *TriggerRequestTopicPublisher {
+	publisher.Register(o5msg.TopicDescriptor{
+		Service: "o5.trigger.v1.topic.TriggerRequestTopic",
+		Methods: []o5msg.MethodDescriptor{
+			{
+				Name:    "TriggerRequest",
+				Message: (*TriggerRequestMessage).ProtoReflect(nil).Descriptor(),
+			},
+		},
+	})
+	return &TriggerRequestTopicPublisher{publisher: publisher}
+}
+
+// Method: TriggerRequest
+
+func (send TriggerRequestTopicTxSender[C]) TriggerRequest(ctx context.Context, sendContext C, msg *TriggerRequestMessage) error {
+	return send.sender.Send(ctx, sendContext, msg)
+}
+
+func (collect TriggerRequestTopicCollector[C]) TriggerRequest(sendContext C, msg *TriggerRequestMessage) {
+	collect.collector.Collect(sendContext, msg)
+}
+
+func (publish TriggerRequestTopicPublisher) TriggerRequest(ctx context.Context, msg *TriggerRequestMessage) error {
+	return publish.publisher.Publish(ctx, msg)
+}
+
+// Service: TriggerReplyTopic
+// Expose Request Metadata
+func (msg *TriggerReplyMessage) SetJ5RequestMetadata(md *messaging_j5pb.RequestMetadata) {
+	msg.Request = md
+}
+func (msg *TriggerReplyMessage) GetJ5RequestMetadata() *messaging_j5pb.RequestMetadata {
+	return msg.Request
+}
+
+// Method: TriggerReply
+
+func (msg *TriggerReplyMessage) O5MessageHeader() o5msg.Header {
+	header := o5msg.Header{
+		GrpcService:      "o5.trigger.v1.topic.TriggerReplyTopic",
+		GrpcMethod:       "TriggerReply",
+		Headers:          map[string]string{},
+		DestinationTopic: "trigger",
+	}
+	if msg.Request != nil {
+		header.Extension = &messaging_pb.Message_Reply_{
+			Reply: &messaging_pb.Message_Reply{
+				ReplyTo: msg.Request.ReplyTo,
+			},
+		}
+	}
+	return header
+}
+
+type TriggerReplyTopicTxSender[C any] struct {
+	sender o5msg.TxSender[C]
+}
+
+func NewTriggerReplyTopicTxSender[C any](sender o5msg.TxSender[C]) *TriggerReplyTopicTxSender[C] {
+	sender.Register(o5msg.TopicDescriptor{
+		Service: "o5.trigger.v1.topic.TriggerReplyTopic",
+		Methods: []o5msg.MethodDescriptor{
+			{
+				Name:    "TriggerReply",
+				Message: (*TriggerReplyMessage).ProtoReflect(nil).Descriptor(),
+			},
+		},
+	})
+	return &TriggerReplyTopicTxSender[C]{sender: sender}
+}
+
+type TriggerReplyTopicCollector[C any] struct {
+	collector o5msg.Collector[C]
+}
+
+func NewTriggerReplyTopicCollector[C any](collector o5msg.Collector[C]) *TriggerReplyTopicCollector[C] {
+	collector.Register(o5msg.TopicDescriptor{
+		Service: "o5.trigger.v1.topic.TriggerReplyTopic",
+		Methods: []o5msg.MethodDescriptor{
+			{
+				Name:    "TriggerReply",
+				Message: (*TriggerReplyMessage).ProtoReflect(nil).Descriptor(),
+			},
+		},
+	})
+	return &TriggerReplyTopicCollector[C]{collector: collector}
+}
+
+type TriggerReplyTopicPublisher struct {
+	publisher o5msg.Publisher
+}
+
+func NewTriggerReplyTopicPublisher(publisher o5msg.Publisher) *TriggerReplyTopicPublisher {
+	publisher.Register(o5msg.TopicDescriptor{
+		Service: "o5.trigger.v1.topic.TriggerReplyTopic",
+		Methods: []o5msg.MethodDescriptor{
+			{
+				Name:    "TriggerReply",
+				Message: (*TriggerReplyMessage).ProtoReflect(nil).Descriptor(),
+			},
+		},
+	})
+	return &TriggerReplyTopicPublisher{publisher: publisher}
+}
+
+// Method: TriggerReply
+
+func (send TriggerReplyTopicTxSender[C]) TriggerReply(ctx context.Context, sendContext C, msg *TriggerReplyMessage) error {
+	return send.sender.Send(ctx, sendContext, msg)
+}
+
+func (collect TriggerReplyTopicCollector[C]) TriggerReply(sendContext C, msg *TriggerReplyMessage) {
+	collect.collector.Collect(sendContext, msg)
+}
+
+func (publish TriggerReplyTopicPublisher) TriggerReply(ctx context.Context, msg *TriggerReplyMessage) error {
 	return publish.publisher.Publish(ctx, msg)
 }

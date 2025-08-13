@@ -4,7 +4,6 @@ package trigger_spb
 
 import (
 	j5reflect "github.com/pentops/j5/lib/j5reflect"
-	j5schema "github.com/pentops/j5/lib/j5schema"
 	proto "google.golang.org/protobuf/proto"
 )
 
@@ -138,52 +137,4 @@ func (msg *ManuallyTriggerResponse) J5Reflect() j5reflect.Root {
 
 func (msg *ManuallyTriggerResponse) J5Object() j5reflect.Object {
 	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
-}
-
-// TriggerGet is a J5 method for service TriggerQueryService
-func TriggerGetJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&TriggerGetRequest{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&TriggerGetResponse{}).ProtoReflect().Descriptor()),
-	}
-}
-
-// TriggerList is a J5 method for service TriggerQueryService
-func TriggerListJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&TriggerListRequest{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&TriggerListResponse{}).ProtoReflect().Descriptor()),
-	}
-}
-
-// TriggerEvents is a J5 method for service TriggerQueryService
-func TriggerEventsJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&TriggerEventsRequest{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&TriggerEventsResponse{}).ProtoReflect().Descriptor()),
-	}
-}
-
-// PauseTrigger is a J5 method for service TriggerCommandService
-func PauseTriggerJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&PauseTriggerRequest{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&PauseTriggerResponse{}).ProtoReflect().Descriptor()),
-	}
-}
-
-// ResumeTrigger is a J5 method for service TriggerCommandService
-func ResumeTriggerJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&ResumeTriggerRequest{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&ResumeTriggerResponse{}).ProtoReflect().Descriptor()),
-	}
-}
-
-// ManuallyTrigger is a J5 method for service TriggerCommandService
-func ManuallyTriggerJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&ManuallyTriggerRequest{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&ManuallyTriggerResponse{}).ProtoReflect().Descriptor()),
-	}
 }

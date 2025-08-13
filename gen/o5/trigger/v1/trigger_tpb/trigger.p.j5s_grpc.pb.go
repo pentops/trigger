@@ -110,89 +110,90 @@ var TriggerPublishTopic_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	TickRequestTopic_TickRequest_FullMethodName = "/o5.trigger.v1.topic.TickRequestTopic/TickRequest"
+	TriggerManageRequestTopic_TriggerManageRequest_FullMethodName = "/o5.trigger.v1.topic.TriggerManageRequestTopic/TriggerManageRequest"
 )
 
-// TickRequestTopicClient is the client API for TickRequestTopic service.
+// TriggerManageRequestTopicClient is the client API for TriggerManageRequestTopic service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type TickRequestTopicClient interface {
-	TickRequest(ctx context.Context, in *TickRequestMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
+type TriggerManageRequestTopicClient interface {
+	TriggerManageRequest(ctx context.Context, in *TriggerManageRequestMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type tickRequestTopicClient struct {
+type triggerManageRequestTopicClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewTickRequestTopicClient(cc grpc.ClientConnInterface) TickRequestTopicClient {
-	return &tickRequestTopicClient{cc}
+func NewTriggerManageRequestTopicClient(cc grpc.ClientConnInterface) TriggerManageRequestTopicClient {
+	return &triggerManageRequestTopicClient{cc}
 }
 
-func (c *tickRequestTopicClient) TickRequest(ctx context.Context, in *TickRequestMessage, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *triggerManageRequestTopicClient) TriggerManageRequest(ctx context.Context, in *TriggerManageRequestMessage, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, TickRequestTopic_TickRequest_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, TriggerManageRequestTopic_TriggerManageRequest_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// TickRequestTopicServer is the server API for TickRequestTopic service.
-// All implementations must embed UnimplementedTickRequestTopicServer
+// TriggerManageRequestTopicServer is the server API for TriggerManageRequestTopic service.
+// All implementations must embed UnimplementedTriggerManageRequestTopicServer
 // for forward compatibility
-type TickRequestTopicServer interface {
-	TickRequest(context.Context, *TickRequestMessage) (*emptypb.Empty, error)
-	mustEmbedUnimplementedTickRequestTopicServer()
+type TriggerManageRequestTopicServer interface {
+	TriggerManageRequest(context.Context, *TriggerManageRequestMessage) (*emptypb.Empty, error)
+	mustEmbedUnimplementedTriggerManageRequestTopicServer()
 }
 
-// UnimplementedTickRequestTopicServer must be embedded to have forward compatible implementations.
-type UnimplementedTickRequestTopicServer struct {
+// UnimplementedTriggerManageRequestTopicServer must be embedded to have forward compatible implementations.
+type UnimplementedTriggerManageRequestTopicServer struct {
 }
 
-func (UnimplementedTickRequestTopicServer) TickRequest(context.Context, *TickRequestMessage) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TickRequest not implemented")
+func (UnimplementedTriggerManageRequestTopicServer) TriggerManageRequest(context.Context, *TriggerManageRequestMessage) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerManageRequest not implemented")
 }
-func (UnimplementedTickRequestTopicServer) mustEmbedUnimplementedTickRequestTopicServer() {}
+func (UnimplementedTriggerManageRequestTopicServer) mustEmbedUnimplementedTriggerManageRequestTopicServer() {
+}
 
-// UnsafeTickRequestTopicServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to TickRequestTopicServer will
+// UnsafeTriggerManageRequestTopicServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TriggerManageRequestTopicServer will
 // result in compilation errors.
-type UnsafeTickRequestTopicServer interface {
-	mustEmbedUnimplementedTickRequestTopicServer()
+type UnsafeTriggerManageRequestTopicServer interface {
+	mustEmbedUnimplementedTriggerManageRequestTopicServer()
 }
 
-func RegisterTickRequestTopicServer(s grpc.ServiceRegistrar, srv TickRequestTopicServer) {
-	s.RegisterService(&TickRequestTopic_ServiceDesc, srv)
+func RegisterTriggerManageRequestTopicServer(s grpc.ServiceRegistrar, srv TriggerManageRequestTopicServer) {
+	s.RegisterService(&TriggerManageRequestTopic_ServiceDesc, srv)
 }
 
-func _TickRequestTopic_TickRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TickRequestMessage)
+func _TriggerManageRequestTopic_TriggerManageRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TriggerManageRequestMessage)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TickRequestTopicServer).TickRequest(ctx, in)
+		return srv.(TriggerManageRequestTopicServer).TriggerManageRequest(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TickRequestTopic_TickRequest_FullMethodName,
+		FullMethod: TriggerManageRequestTopic_TriggerManageRequest_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TickRequestTopicServer).TickRequest(ctx, req.(*TickRequestMessage))
+		return srv.(TriggerManageRequestTopicServer).TriggerManageRequest(ctx, req.(*TriggerManageRequestMessage))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// TickRequestTopic_ServiceDesc is the grpc.ServiceDesc for TickRequestTopic service.
+// TriggerManageRequestTopic_ServiceDesc is the grpc.ServiceDesc for TriggerManageRequestTopic service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var TickRequestTopic_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "o5.trigger.v1.topic.TickRequestTopic",
-	HandlerType: (*TickRequestTopicServer)(nil),
+var TriggerManageRequestTopic_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "o5.trigger.v1.topic.TriggerManageRequestTopic",
+	HandlerType: (*TriggerManageRequestTopicServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "TickRequest",
-			Handler:    _TickRequestTopic_TickRequest_Handler,
+			MethodName: "TriggerManageRequest",
+			Handler:    _TriggerManageRequestTopic_TriggerManageRequest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -200,89 +201,270 @@ var TickRequestTopic_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	TickReplyTopic_TickReply_FullMethodName = "/o5.trigger.v1.topic.TickReplyTopic/TickReply"
+	TriggerManageReplyTopic_TriggerManageReply_FullMethodName = "/o5.trigger.v1.topic.TriggerManageReplyTopic/TriggerManageReply"
 )
 
-// TickReplyTopicClient is the client API for TickReplyTopic service.
+// TriggerManageReplyTopicClient is the client API for TriggerManageReplyTopic service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type TickReplyTopicClient interface {
-	TickReply(ctx context.Context, in *TickReplyMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
+type TriggerManageReplyTopicClient interface {
+	TriggerManageReply(ctx context.Context, in *TriggerManageReplyMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type tickReplyTopicClient struct {
+type triggerManageReplyTopicClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewTickReplyTopicClient(cc grpc.ClientConnInterface) TickReplyTopicClient {
-	return &tickReplyTopicClient{cc}
+func NewTriggerManageReplyTopicClient(cc grpc.ClientConnInterface) TriggerManageReplyTopicClient {
+	return &triggerManageReplyTopicClient{cc}
 }
 
-func (c *tickReplyTopicClient) TickReply(ctx context.Context, in *TickReplyMessage, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *triggerManageReplyTopicClient) TriggerManageReply(ctx context.Context, in *TriggerManageReplyMessage, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, TickReplyTopic_TickReply_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, TriggerManageReplyTopic_TriggerManageReply_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// TickReplyTopicServer is the server API for TickReplyTopic service.
-// All implementations must embed UnimplementedTickReplyTopicServer
+// TriggerManageReplyTopicServer is the server API for TriggerManageReplyTopic service.
+// All implementations must embed UnimplementedTriggerManageReplyTopicServer
 // for forward compatibility
-type TickReplyTopicServer interface {
-	TickReply(context.Context, *TickReplyMessage) (*emptypb.Empty, error)
-	mustEmbedUnimplementedTickReplyTopicServer()
+type TriggerManageReplyTopicServer interface {
+	TriggerManageReply(context.Context, *TriggerManageReplyMessage) (*emptypb.Empty, error)
+	mustEmbedUnimplementedTriggerManageReplyTopicServer()
 }
 
-// UnimplementedTickReplyTopicServer must be embedded to have forward compatible implementations.
-type UnimplementedTickReplyTopicServer struct {
+// UnimplementedTriggerManageReplyTopicServer must be embedded to have forward compatible implementations.
+type UnimplementedTriggerManageReplyTopicServer struct {
 }
 
-func (UnimplementedTickReplyTopicServer) TickReply(context.Context, *TickReplyMessage) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TickReply not implemented")
+func (UnimplementedTriggerManageReplyTopicServer) TriggerManageReply(context.Context, *TriggerManageReplyMessage) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerManageReply not implemented")
 }
-func (UnimplementedTickReplyTopicServer) mustEmbedUnimplementedTickReplyTopicServer() {}
+func (UnimplementedTriggerManageReplyTopicServer) mustEmbedUnimplementedTriggerManageReplyTopicServer() {
+}
 
-// UnsafeTickReplyTopicServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to TickReplyTopicServer will
+// UnsafeTriggerManageReplyTopicServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TriggerManageReplyTopicServer will
 // result in compilation errors.
-type UnsafeTickReplyTopicServer interface {
-	mustEmbedUnimplementedTickReplyTopicServer()
+type UnsafeTriggerManageReplyTopicServer interface {
+	mustEmbedUnimplementedTriggerManageReplyTopicServer()
 }
 
-func RegisterTickReplyTopicServer(s grpc.ServiceRegistrar, srv TickReplyTopicServer) {
-	s.RegisterService(&TickReplyTopic_ServiceDesc, srv)
+func RegisterTriggerManageReplyTopicServer(s grpc.ServiceRegistrar, srv TriggerManageReplyTopicServer) {
+	s.RegisterService(&TriggerManageReplyTopic_ServiceDesc, srv)
 }
 
-func _TickReplyTopic_TickReply_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TickReplyMessage)
+func _TriggerManageReplyTopic_TriggerManageReply_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TriggerManageReplyMessage)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TickReplyTopicServer).TickReply(ctx, in)
+		return srv.(TriggerManageReplyTopicServer).TriggerManageReply(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TickReplyTopic_TickReply_FullMethodName,
+		FullMethod: TriggerManageReplyTopic_TriggerManageReply_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TickReplyTopicServer).TickReply(ctx, req.(*TickReplyMessage))
+		return srv.(TriggerManageReplyTopicServer).TriggerManageReply(ctx, req.(*TriggerManageReplyMessage))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// TickReplyTopic_ServiceDesc is the grpc.ServiceDesc for TickReplyTopic service.
+// TriggerManageReplyTopic_ServiceDesc is the grpc.ServiceDesc for TriggerManageReplyTopic service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var TickReplyTopic_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "o5.trigger.v1.topic.TickReplyTopic",
-	HandlerType: (*TickReplyTopicServer)(nil),
+var TriggerManageReplyTopic_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "o5.trigger.v1.topic.TriggerManageReplyTopic",
+	HandlerType: (*TriggerManageReplyTopicServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "TickReply",
-			Handler:    _TickReplyTopic_TickReply_Handler,
+			MethodName: "TriggerManageReply",
+			Handler:    _TriggerManageReplyTopic_TriggerManageReply_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "o5/trigger/v1/topic/trigger.p.j5s.proto",
+}
+
+const (
+	TriggerRequestTopic_TriggerRequest_FullMethodName = "/o5.trigger.v1.topic.TriggerRequestTopic/TriggerRequest"
+)
+
+// TriggerRequestTopicClient is the client API for TriggerRequestTopic service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type TriggerRequestTopicClient interface {
+	TriggerRequest(ctx context.Context, in *TriggerRequestMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
+}
+
+type triggerRequestTopicClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTriggerRequestTopicClient(cc grpc.ClientConnInterface) TriggerRequestTopicClient {
+	return &triggerRequestTopicClient{cc}
+}
+
+func (c *triggerRequestTopicClient) TriggerRequest(ctx context.Context, in *TriggerRequestMessage, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TriggerRequestTopic_TriggerRequest_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TriggerRequestTopicServer is the server API for TriggerRequestTopic service.
+// All implementations must embed UnimplementedTriggerRequestTopicServer
+// for forward compatibility
+type TriggerRequestTopicServer interface {
+	TriggerRequest(context.Context, *TriggerRequestMessage) (*emptypb.Empty, error)
+	mustEmbedUnimplementedTriggerRequestTopicServer()
+}
+
+// UnimplementedTriggerRequestTopicServer must be embedded to have forward compatible implementations.
+type UnimplementedTriggerRequestTopicServer struct {
+}
+
+func (UnimplementedTriggerRequestTopicServer) TriggerRequest(context.Context, *TriggerRequestMessage) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerRequest not implemented")
+}
+func (UnimplementedTriggerRequestTopicServer) mustEmbedUnimplementedTriggerRequestTopicServer() {}
+
+// UnsafeTriggerRequestTopicServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TriggerRequestTopicServer will
+// result in compilation errors.
+type UnsafeTriggerRequestTopicServer interface {
+	mustEmbedUnimplementedTriggerRequestTopicServer()
+}
+
+func RegisterTriggerRequestTopicServer(s grpc.ServiceRegistrar, srv TriggerRequestTopicServer) {
+	s.RegisterService(&TriggerRequestTopic_ServiceDesc, srv)
+}
+
+func _TriggerRequestTopic_TriggerRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TriggerRequestMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TriggerRequestTopicServer).TriggerRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TriggerRequestTopic_TriggerRequest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TriggerRequestTopicServer).TriggerRequest(ctx, req.(*TriggerRequestMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TriggerRequestTopic_ServiceDesc is the grpc.ServiceDesc for TriggerRequestTopic service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TriggerRequestTopic_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "o5.trigger.v1.topic.TriggerRequestTopic",
+	HandlerType: (*TriggerRequestTopicServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "TriggerRequest",
+			Handler:    _TriggerRequestTopic_TriggerRequest_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "o5/trigger/v1/topic/trigger.p.j5s.proto",
+}
+
+const (
+	TriggerReplyTopic_TriggerReply_FullMethodName = "/o5.trigger.v1.topic.TriggerReplyTopic/TriggerReply"
+)
+
+// TriggerReplyTopicClient is the client API for TriggerReplyTopic service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type TriggerReplyTopicClient interface {
+	TriggerReply(ctx context.Context, in *TriggerReplyMessage, opts ...grpc.CallOption) (*emptypb.Empty, error)
+}
+
+type triggerReplyTopicClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTriggerReplyTopicClient(cc grpc.ClientConnInterface) TriggerReplyTopicClient {
+	return &triggerReplyTopicClient{cc}
+}
+
+func (c *triggerReplyTopicClient) TriggerReply(ctx context.Context, in *TriggerReplyMessage, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TriggerReplyTopic_TriggerReply_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TriggerReplyTopicServer is the server API for TriggerReplyTopic service.
+// All implementations must embed UnimplementedTriggerReplyTopicServer
+// for forward compatibility
+type TriggerReplyTopicServer interface {
+	TriggerReply(context.Context, *TriggerReplyMessage) (*emptypb.Empty, error)
+	mustEmbedUnimplementedTriggerReplyTopicServer()
+}
+
+// UnimplementedTriggerReplyTopicServer must be embedded to have forward compatible implementations.
+type UnimplementedTriggerReplyTopicServer struct {
+}
+
+func (UnimplementedTriggerReplyTopicServer) TriggerReply(context.Context, *TriggerReplyMessage) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerReply not implemented")
+}
+func (UnimplementedTriggerReplyTopicServer) mustEmbedUnimplementedTriggerReplyTopicServer() {}
+
+// UnsafeTriggerReplyTopicServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TriggerReplyTopicServer will
+// result in compilation errors.
+type UnsafeTriggerReplyTopicServer interface {
+	mustEmbedUnimplementedTriggerReplyTopicServer()
+}
+
+func RegisterTriggerReplyTopicServer(s grpc.ServiceRegistrar, srv TriggerReplyTopicServer) {
+	s.RegisterService(&TriggerReplyTopic_ServiceDesc, srv)
+}
+
+func _TriggerReplyTopic_TriggerReply_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TriggerReplyMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TriggerReplyTopicServer).TriggerReply(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TriggerReplyTopic_TriggerReply_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TriggerReplyTopicServer).TriggerReply(ctx, req.(*TriggerReplyMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TriggerReplyTopic_ServiceDesc is the grpc.ServiceDesc for TriggerReplyTopic service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TriggerReplyTopic_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "o5.trigger.v1.topic.TriggerReplyTopic",
+	HandlerType: (*TriggerReplyTopicServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "TriggerReply",
+			Handler:    _TriggerReplyTopic_TriggerReply_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

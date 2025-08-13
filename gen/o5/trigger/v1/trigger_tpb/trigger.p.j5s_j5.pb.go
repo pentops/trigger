@@ -4,9 +4,7 @@ package trigger_tpb
 
 import (
 	j5reflect "github.com/pentops/j5/lib/j5reflect"
-	j5schema "github.com/pentops/j5/lib/j5schema"
 	proto "google.golang.org/protobuf/proto"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (msg *TriggerEventMessage) Clone() any {
@@ -20,48 +18,46 @@ func (msg *TriggerEventMessage) J5Object() j5reflect.Object {
 	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
 }
 
-func (msg *TickRequestMessage) Clone() any {
-	return proto.Clone(msg).(*TickRequestMessage)
+func (msg *TriggerManageRequestMessage) Clone() any {
+	return proto.Clone(msg).(*TriggerManageRequestMessage)
 }
-func (msg *TickRequestMessage) J5Reflect() j5reflect.Root {
+func (msg *TriggerManageRequestMessage) J5Reflect() j5reflect.Root {
 	return j5reflect.MustReflect(msg.ProtoReflect())
 }
 
-func (msg *TickRequestMessage) J5Object() j5reflect.Object {
+func (msg *TriggerManageRequestMessage) J5Object() j5reflect.Object {
 	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
 }
 
-func (msg *TickReplyMessage) Clone() any {
-	return proto.Clone(msg).(*TickReplyMessage)
+func (msg *TriggerManageReplyMessage) Clone() any {
+	return proto.Clone(msg).(*TriggerManageReplyMessage)
 }
-func (msg *TickReplyMessage) J5Reflect() j5reflect.Root {
+func (msg *TriggerManageReplyMessage) J5Reflect() j5reflect.Root {
 	return j5reflect.MustReflect(msg.ProtoReflect())
 }
 
-func (msg *TickReplyMessage) J5Object() j5reflect.Object {
+func (msg *TriggerManageReplyMessage) J5Object() j5reflect.Object {
 	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
 }
 
-// TriggerEvent is a J5 method for service TriggerPublishTopic
-func TriggerEventJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&TriggerEventMessage{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&emptypb.Empty{}).ProtoReflect().Descriptor()),
-	}
+func (msg *TriggerRequestMessage) Clone() any {
+	return proto.Clone(msg).(*TriggerRequestMessage)
+}
+func (msg *TriggerRequestMessage) J5Reflect() j5reflect.Root {
+	return j5reflect.MustReflect(msg.ProtoReflect())
 }
 
-// TickRequest is a J5 method for service TickRequestTopic
-func TickRequestJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&TickRequestMessage{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&emptypb.Empty{}).ProtoReflect().Descriptor()),
-	}
+func (msg *TriggerRequestMessage) J5Object() j5reflect.Object {
+	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
 }
 
-// TickReply is a J5 method for service TickReplyTopic
-func TickReplyJ5MethodSchema() *j5schema.MethodSchema {
-	return &j5schema.MethodSchema{
-		Request:  j5schema.MustObjectSchema((&TickReplyMessage{}).ProtoReflect().Descriptor()),
-		Response: j5schema.MustObjectSchema((&emptypb.Empty{}).ProtoReflect().Descriptor()),
-	}
+func (msg *TriggerReplyMessage) Clone() any {
+	return proto.Clone(msg).(*TriggerReplyMessage)
+}
+func (msg *TriggerReplyMessage) J5Reflect() j5reflect.Root {
+	return j5reflect.MustReflect(msg.ProtoReflect())
+}
+
+func (msg *TriggerReplyMessage) J5Object() j5reflect.Object {
+	return j5reflect.MustReflect(msg.ProtoReflect()).(j5reflect.Object)
 }
