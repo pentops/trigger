@@ -82,7 +82,7 @@ func TestSelfTick(tt *testing.T) {
 		uu.Outbox.PopMessage(t, stmsg)
 		t.Equal(true, stmsg.LastTick.AsTime().Equal(lastTick.Add(1*time.Minute)))
 
-		trmsg := &trigger_tpb.TickReplyMessage{}
+		trmsg := &trigger_tpb.TriggerManageReplyMessage{}
 
 		// last tick was sent, so need to add 1 minute to make sure the tick happened at the correct time.
 		thisTick := lastTick.Add(1 * time.Minute)

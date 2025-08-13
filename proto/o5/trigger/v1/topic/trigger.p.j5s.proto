@@ -24,14 +24,14 @@ service TriggerPublishTopic {
   rpc TriggerEvent(TriggerEventMessage) returns (google.protobuf.Empty) {}
 }
 
-service TickRequestTopic {
+service TriggerManageRequestTopic {
   option (j5.messaging.v1.service) = {
     topic_name: "tick"
     request: {
     }
   };
 
-  rpc TickRequest(TickRequestMessage) returns (google.protobuf.Empty) {}
+  rpc TriggerManageRequest(TriggerManageRequestMessage) returns (google.protobuf.Empty) {}
 }
 
 service TickReplyTopic {
@@ -78,7 +78,7 @@ message TriggerEventMessage {
   ];
 }
 
-message TickRequestMessage {
+message TriggerManageRequestMessage {
   option (j5.ext.v1.message).object = {};
 
   j5.messaging.v1.RequestMetadata request = 1 [

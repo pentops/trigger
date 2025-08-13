@@ -137,7 +137,7 @@ func (uu *Universe) CreateTrigger(ctx context.Context, config triggerConfig) err
 		triggerID = &config.TriggerID
 	}
 
-	req := &trigger_tpb.TickRequestMessage{
+	req := &trigger_tpb.TriggerManageRequestMessage{
 		Request: requestMetadata,
 		Action: &trigger_pb.ActionType{
 			Type: &trigger_pb.ActionType_Create_{
@@ -151,7 +151,7 @@ func (uu *Universe) CreateTrigger(ctx context.Context, config triggerConfig) err
 		},
 	}
 
-	_, err := uu.TriggerWorker.TickRequest(ctx, req)
+	_, err := uu.TriggerWorker.TriggerManageRequest(ctx, req)
 	if err != nil {
 		return fmt.Errorf("failed to universe create trigger: %w", err)
 	}
@@ -188,7 +188,7 @@ func (uu *Universe) UpdateTrigger(ctx context.Context, config triggerConfig) err
 		triggerID = config.TriggerID
 	}
 
-	req := &trigger_tpb.TickRequestMessage{
+	req := &trigger_tpb.TriggerManageRequestMessage{
 		Request: requestMetadata,
 		Action: &trigger_pb.ActionType{
 			Type: &trigger_pb.ActionType_Update_{
@@ -202,7 +202,7 @@ func (uu *Universe) UpdateTrigger(ctx context.Context, config triggerConfig) err
 		},
 	}
 
-	_, err := uu.TriggerWorker.TickRequest(ctx, req)
+	_, err := uu.TriggerWorker.TriggerManageRequest(ctx, req)
 	if err != nil {
 		return fmt.Errorf("failed to universe update trigger: %w", err)
 	}

@@ -29,8 +29,8 @@ type TriggerWorker struct {
 
 	trigger_tpb.UnimplementedTriggerPublishTopicServer
 	trigger_tpb.UnimplementedSelfTickTopicServer
-	trigger_tpb.UnimplementedTickRequestTopicServer
-	trigger_tpb.UnimplementedTickReplyTopicServer
+	trigger_tpb.UnimplementedTriggerManageRequestTopicServer
+	trigger_tpb.UnimplementedTriggerManageReplyTopicServer
 }
 
 const (
@@ -68,7 +68,7 @@ func (w TriggerWorker) InitSelfTick(ctx context.Context) error {
 	return nil
 }
 
-func (w *TriggerWorker) TickRequest(ctx context.Context, req *trigger_tpb.TickRequestMessage) (*emptypb.Empty, error) {
+func (w *TriggerWorker) TriggerManageRequest(ctx context.Context, req *trigger_tpb.TriggerManageRequestMessage) (*emptypb.Empty, error) {
 	var evt *trigger_pb.TriggerPSMEventSpec
 
 	switch req.Action.Type.(type) {

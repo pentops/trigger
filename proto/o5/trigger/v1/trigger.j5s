@@ -144,7 +144,7 @@ entity Trigger {
   }
 }
 
-topic Tick reqres {
+topic TriggerManage reqres {
 	request {
     field action ! oneof:ActionType
 	}

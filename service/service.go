@@ -52,6 +52,6 @@ func (a *Service) RegisterGRPC(server grpc.ServiceRegistrar) {
 	trigger_spb.RegisterTriggerCommandServiceServer(server, a.TriggerCommand)
 	trigger_tpb.RegisterTriggerPublishTopicServer(server, a.TriggerWorker)
 	trigger_tpb.RegisterSelfTickTopicServer(server, a.TriggerWorker)
-	trigger_tpb.RegisterTickRequestTopicServer(server, a.TriggerWorker)
-	trigger_tpb.RegisterTickReplyTopicServer(server, a.TriggerWorker)
+	trigger_tpb.RegisterTriggerManageRequestTopicServer(server, a.TriggerWorker)
+	trigger_tpb.RegisterTriggerManageReplyTopicServer(server, a.TriggerWorker)
 }

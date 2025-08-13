@@ -67,7 +67,7 @@ func NewTriggerStateMachine() (*trigger_pb.TriggerPSM, error) {
 			event *trigger_pb.TriggerEventType_Triggered,
 		) error {
 
-			reply := &trigger_tpb.TickReplyMessage{
+			reply := &trigger_tpb.TriggerManageReplyMessage{
 				Request:  state.Data.RequestMetadata,
 				TickTime: event.TriggerTime,
 			}
@@ -87,7 +87,7 @@ func NewTriggerStateMachine() (*trigger_pb.TriggerPSM, error) {
 			event *trigger_pb.TriggerEventType_ManuallyTriggered,
 		) error {
 
-			reply := &trigger_tpb.TickReplyMessage{
+			reply := &trigger_tpb.TriggerManageReplyMessage{
 				Request:  state.Data.RequestMetadata,
 				TickTime: event.TriggerTime,
 			}
